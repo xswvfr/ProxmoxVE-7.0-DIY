@@ -481,7 +481,7 @@ $res->{sensinfo} = `sensors -j`;
 #### 1.编辑GRUB配置文件：/etc/default/grub
 
 ```
-sed -i "s/quiet/quiet intel_iommu=on iommu=pt initcall_blacklist=sysfb_init video=vesafb:off/g" /etc/default/grub
+sed -i "s/quiet/quiet intel_iommu=on iommu=pt initcall_blacklist=sysfb_init video=vesafb:off efifb:off/g" /etc/default/grub
 ```
 
 改好结果：
