@@ -478,6 +478,56 @@ $res->{sensinfo} = `sensors -j`;
 <details>
 <summary>点击展开，查看详细教程！</summary>
 
+查看已安装内核
+dpkg --get-selections |grep kernel
+
+查看当前内核
+uname -a
+
+查找内核
+apt-cache search linux | grep 'PVE Kernel Image'
+
+安装内核
+apt-get install 5.13.19-6-pve
+
+查看当前系统内核启动顺序
+grep menuentry /boot/grub/grub.cfg
+
+修改内核启动顺序
+nano /etc/default/grub
+
+把默认的GRUB_DEFAULT=“0”改为
+GRUB_DEFAULT="Advanced options for Proxmox VE GNU/Linux>Proxmox VE GNU/Linux, with Linux 5.13.19-2-pve"
+
+更新引导并重启
+update-grub
+reboot
+
+重启后，使用命令uname -r查看
+
+2. 回退内核至 5.13:
+
+检查是否安装 5.13 版内核:
+proxmox-boot-tool kernel list
+
+如果 5.13 内核未被安装或者内核被手动清理的话可能需要手动安装 5.13 内核:
+apt install pve-kernel-5.13
+
+安装成功后再次执行以下命令查看已安装的内核:
+proxmox-boot-tool kernel list
+
+固定之后启动的内核版本:
+proxmox-boot-tool kernel pin 5.13.19-6-pve
+
+保存配置:
+proxmox-boot-tool refresh
+
+重启后内核即被回退至 5.13。
+
+如果你想解除内核固定，可以执行:
+proxmox-boot-tool kernel unpin 5.13.19-6-pve
+proxmox-boot-tool refresh
+	
 #### 1.编辑GRUB配置文件：/etc/default/grub
 
 ```
