@@ -1148,4 +1148,11 @@ rm -rf /etc/default/grub.d/proxmox-kernel-pin.cfg
 
 </details>
 
+proxmox 侧边栏状态未知?
+
+```
+systemctl status pvestatd
+systemctl restart pvestatd
+```
+
 
